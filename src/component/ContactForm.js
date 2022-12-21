@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, Button, Input } from 'react-native-elements';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
+import { FIRST_NAME, LAST_NAME, COMPANY, PHONE, EMAIL } from '../redux/Contact/const';
 
-function ContactForm() {
+const initialState = {
+  [FIRST_NAME]: "",
+  [LAST_NAME]: "",
+  [COMPANY]: "",
+  [PHONE]: "",
+  [EMAIL]: ""
+};
+
+function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
+  const [firstName, setFirstsName] = useState(formData[FIRST_NAME]);
+  const [lastName, setLastsName] = useState(formData[LAST_NAME]);
+  const [company, setCompany] = useState(formData[COMPANY]);
+  const [phone, setPhone] = useState(formData[PHONE]);
+  const [email, setEmail] = useState(formData[EMAIL]);
+
+  const handleFirstNameChange = (text) => {
+    setFirstsName(text);
+  }
+  const handleLastNameChange = (text) => {
+    setLastsName(text);
+  }
+  const handleCompanyChange = (text) => {
+    setCompany(text);
+  }
+  const handlePhoneChange = (text) => {
+    setPhone(text);
+  }
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  }
+  // console.log("firstName, ", firstName, lastName, company, phone, email);
+  const userData = {
+    [FIRST_NAME]: firstName,
+    [LAST_NAME]: lastName,
+    [COMPANY]: company,
+    [PHONE]: phone,
+    [EMAIL]: email
+  };
   return (
     <View>
       <View style={styles.header}>
@@ -10,33 +48,39 @@ function ContactForm() {
           <Text>Save to <Text>Localstorage</Text></Text>
         </View>
         <View style={{ width: 100 }}>
-          <Button title="Save" />
+          <Button title={submitButtonTitle} onPress={() => onSubmit(userData)} />
         </View>
       </View>
-      <Input
-        // value={email}
-        // onChange={handleEmailChange}
-        // label="search"
-        // style={styles.input}
+      <TextInput
+        value={firstName}
+        onChangeText={handleFirstNameChange}
         placeholder="First Name"
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <Input
+      <TextInput
+        value={lastName}
+        onChangeText={handleLastNameChange}
         placeholder="Last Name"
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <Input
+      <TextInput
+        value={company}
+        onChangeText={handleCompanyChange}
         placeholder="Company"
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <Input
+      <TextInput
+        value={phone}
+        onChangeText={handlePhoneChange}
         keyboardType='numeric'
         placeholder="Phone"
       />
-      <Input
+      <TextInput
+        value={email}
+        onChangeText={handleEmailChange}
         placeholder="Email"
         autoCapitalize="none"
         autoCorrect={false}
