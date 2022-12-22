@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Button, Input } from 'react-native-elements';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { FIRST_NAME, LAST_NAME, COMPANY, PHONE, EMAIL } from '../redux/Contact/const';
@@ -12,6 +12,7 @@ const initialState = {
 };
 
 function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
+  console.log("ContactForm state ==>", formData);
   const [firstName, setFirstsName] = useState(formData[FIRST_NAME]);
   const [lastName, setLastsName] = useState(formData[LAST_NAME]);
   const [company, setCompany] = useState(formData[COMPANY]);
@@ -35,12 +36,20 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
   }
   // console.log("firstName, ", firstName, lastName, company, phone, email);
   const userData = {
+    "id": formData?.id ? formData?.id : null,
     [FIRST_NAME]: firstName,
     [LAST_NAME]: lastName,
     [COMPANY]: company,
     [PHONE]: phone,
     [EMAIL]: email
   };
+  useEffect(() => {
+    setFirstsName(formData[FIRST_NAME]);
+    setLastsName(formData[LAST_NAME]);
+    setCompany(formData[COMPANY]);
+    setPhone(formData[PHONE]);
+    setEmail(formData[EMAIL]);
+  }, [formData])
   return (
     <View>
       <View style={styles.header}>

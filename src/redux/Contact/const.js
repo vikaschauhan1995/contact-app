@@ -19,3 +19,11 @@ export const CONTACT_SAVE_ERROR = 'contact_save_error';
 export const SET_CONTACT_LIST = 'set_contact_list';
 export const ADD_CONTACT_TO_CONTACT_LIST = 'add_contact_to_contact_list';
 export const REMOVE_CONTACT_FROM_CONTACT_LIST = 'remove_contact_from_contact_list';
+
+export const initialContactState = {
+  [FIRST_NAME]: "",
+  [LAST_NAME]: "",
+  [COMPANY]: "",
+  [PHONE]: "",
+  [EMAIL]: ""
+};

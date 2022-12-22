@@ -16,8 +16,8 @@ import { deleteContactById } from './methods/deleteContactById';
 function* saveContact(params) {
   try {
     const formData = params?.payload;
-    yield put({ type: ADD_CONTACT_TO_CONTACT_LIST, payload: formData });
-    yield saveContactToLocalStorage(formData);
+    const newContact = yield saveContactToLocalStorage(formData);
+    yield put({ type: ADD_CONTACT_TO_CONTACT_LIST, payload: newContact });
   } catch (error) {
     // debugger;
     console.log("error", error);
