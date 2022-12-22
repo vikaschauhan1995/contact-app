@@ -1,4 +1,4 @@
-import { SAVE_CONTACT, GET_CONTACTS } from './const';
+import { SAVE_CONTACT, GET_CONTACTS, DELETE_CONTACT } from './const';
 
 export function saveContact(formData) {
   return {
@@ -10,5 +10,12 @@ export function saveContact(formData) {
 export function getContacts() {
   return {
     type: GET_CONTACTS
+  }
+}
+
+export function deleteContact(id) {
+  return {
+    type: DELETE_CONTACT,
+    payload: id
   }
 }

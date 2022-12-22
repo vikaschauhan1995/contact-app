@@ -1,4 +1,5 @@
-import { ADD_CONTACT_TO_CONTACT_LIST, CONTACT_LIST, SET_CONTACT_LIST } from './const';
+import { ADD_CONTACT_TO_CONTACT_LIST, CONTACT_LIST, SET_CONTACT_LIST, REMOVE_CONTACT_FROM_CONTACT_LIST } from './const';
+import { removeObjectByid } from './methods/removeObjectByid';
 
 const initialState = {
   [CONTACT_LIST]: []
@@ -9,10 +10,11 @@ export const reducer = (state = initialState, action) => {
     case SET_CONTACT_LIST:
       return { ...state, [CONTACT_LIST]: action.payload };
     case ADD_CONTACT_TO_CONTACT_LIST:
-      // debugger;
       const newState = { ...state, [CONTACT_LIST]: [...state[CONTACT_LIST], action.payload] };
-      console.log("newState", newState);
       return newState;
+    case REMOVE_CONTACT_FROM_CONTACT_LIST:
+      const newArr = removeObjectByid(state[CONTACT_LIST], action.payload);
+      return { ...state, [CONTACT_LIST]: newArr };
     default:
       return state;
   }

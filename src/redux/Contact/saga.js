@@ -4,11 +4,14 @@ import {
   SAVE_CONTACT,
   SET_CONTACT_LIST,
   CONTACT_LOCAL_STORAGE_KEY,
-  ADD_CONTACT_TO_CONTACT_LIST
+  ADD_CONTACT_TO_CONTACT_LIST,
+  DELETE_CONTACT,
+  REMOVE_CONTACT_FROM_CONTACT_LIST
 } from './const';
 import { takeLatest, put } from 'redux-saga/effects';
 import { saveContactToLocalStorage } from './methods/saveContactToLocalStorage';
 import { getDataFromLocalStorage } from './methods/getDataFromLocalStorage';
+import { deleteContactById } from './methods/deleteContactById';
 
 function* saveContact(params) {
   try {
@@ -32,9 +35,22 @@ function* getContacts() {
   }
 }
 
+function* deleteContact(params) {
+  try {
+    const id = params?.payload;
+    yield deleteContactById(id);
+    yield put({ type: REMOVE_CONTACT_FROM_CONTACT_LIST, payload: id });
+    // console.log('deleteContact id=>', id);
+  } catch (error) {
+    console.log('Got error while deleting a contact from local storage Error: ', error);
+  }
+}
+
+
 
 
 export default function* saga() {
   yield takeLatest(GET_CONTACTS, getContacts);
   yield takeLatest(SAVE_CONTACT, saveContact);
+  yield takeLatest(DELETE_CONTACT, deleteContact);
 }

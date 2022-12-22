@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 import { HOME_SCREEN_NAVIGATION_KEY } from '../constant';
 
 function CreateContact({ navigation }) {
-  console.log("navigation", navigation);
+  // console.log("navigation", navigation);
   const dispatch = useDispatch();
   const save = (formData) => {
     dispatch(saveContact(formData));

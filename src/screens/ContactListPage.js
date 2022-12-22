@@ -10,7 +10,6 @@ import { CONTACT_REDUCER, CONTACT_LIST } from '../redux/Contact/const';
 
 function ContactListPage({ navigation }) {
   const contactList = useSelector(state => state[CONTACT_REDUCER][CONTACT_LIST]);
-  console.log("contactList =>", contactList);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getContacts());
