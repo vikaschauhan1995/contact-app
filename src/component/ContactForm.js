@@ -12,7 +12,6 @@ const initialState = {
 };
 
 function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
-  console.log("ContactForm state ==>", formData);
   const [firstName, setFirstsName] = useState(formData[FIRST_NAME]);
   const [lastName, setLastsName] = useState(formData[LAST_NAME]);
   const [company, setCompany] = useState(formData[COMPANY]);

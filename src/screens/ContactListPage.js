@@ -1,24 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactList from '../component/ContactList';
+import { filterListOfObjs } from '../methods/filterListOfObjs';
 import { getContacts } from '../redux/Contact/action';
 import { CONTACT_REDUCER, CONTACT_LIST } from '../redux/Contact/const';
 
 function ContactListPage({ navigation }) {
   const contactList = useSelector(state => state[CONTACT_REDUCER][CONTACT_LIST]);
+  const [input, setInput] = useState('');
+  const [filteredList, setFilteredList] = useState(false);
   const dispatch = useDispatch();
+  const copyContactList = () => {
+    if (filteredList === false) {
+      setFilteredList(contactList);
+    }
+  }
+  const handleInputChange = (text) => {
+    setInput(text);
+    const filteredList = filterListOfObjs(contactList, text);
+    setFilteredList(filteredList);
+  }
   useEffect(() => {
     dispatch(getContacts());
   }, []);
   return (
     <View>
       <Input
-        // value={email}
-        // onChange={handleEmailChange}
+        value={input}
+        onChangeText={handleInputChange}
+        onFocus={copyContactList}
         // label="search"
         style={styles.input}
         placeholder="Search"
@@ -30,7 +44,7 @@ function ContactListPage({ navigation }) {
       }}>
         <Text>Create Contact +</Text>
       </TouchableOpacity>
-      <ContactList list={contactList} />
+      <ContactList list={filteredList === false ? contactList : filteredList} />
     </View>
   )
 }
