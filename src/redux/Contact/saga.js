@@ -6,12 +6,14 @@ import {
   CONTACT_LOCAL_STORAGE_KEY,
   ADD_CONTACT_TO_CONTACT_LIST,
   DELETE_CONTACT,
-  REMOVE_CONTACT_FROM_CONTACT_LIST
+  REMOVE_CONTACT_FROM_CONTACT_LIST,
+  UPDATE_CONTACT
 } from './const';
 import { takeLatest, put } from 'redux-saga/effects';
 import { saveContactToLocalStorage } from './methods/saveContactToLocalStorage';
 import { getDataFromLocalStorage } from './methods/getDataFromLocalStorage';
 import { deleteContactById } from './methods/deleteContactById';
+import { updateContactOnLocalstorage } from './methods/updateContactOnLocalstorage';
 
 function* saveContact(params) {
   try {
@@ -46,6 +48,16 @@ function* deleteContact(params) {
   }
 }
 
+function* updateContact(params) {
+  try {
+    const contact = params?.payload;
+    const updatedArray = yield updateContactOnLocalstorage(contact);
+    yield put({ type: SET_CONTACT_LIST, payload: updatedArray });
+  } catch (error) {
+    console.log('Got error while updating contact error: ', error);
+  }
+}
+
 
 
 
@@ -53,4 +65,5 @@ export default function* saga() {
   yield takeLatest(GET_CONTACTS, getContacts);
   yield takeLatest(SAVE_CONTACT, saveContact);
   yield takeLatest(DELETE_CONTACT, deleteContact);
+  yield takeLatest(UPDATE_CONTACT, updateContact);
 }

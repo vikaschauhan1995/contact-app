@@ -12,6 +12,7 @@ export const EMAIL = 'email';
 export const SAVE_CONTACT = 'save_contact';
 export const GET_CONTACTS = 'get_contacts';
 export const DELETE_CONTACT = 'delete_contacts';
+export const UPDATE_CONTACT = 'update_contacts';
 
 export const CONTACT_LOCAL_STORAGE_KEY = 'contact';
 export const CONTACT_SAVE_ERROR = 'contact_save_error';
