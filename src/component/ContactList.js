@@ -8,7 +8,6 @@ import { EDIT_CONTACT_SCREEN_NAVIGATION_KEY } from '../constant';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../redux/Contact/action';
 import { sortArrayOfObjectByKey } from '../redux/Contact/methods/sortArrayOfObjectByKey';
-import AlertView from './AlertView';
 
 const ContactList = ({ navigation, list }) => {
   const dispatch = useDispatch();

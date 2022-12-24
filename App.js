@@ -18,7 +18,8 @@ const navigator = createStackNavigator({
 }, {
   initialRouteKey: HOME_SCREEN_NAVIGATION_KEY,
   defaultNavigationOptions: {
-    title: "Contact"
+    title: "Contact",
+    cardStyle: { backgroundColor: 'white' },
   }
 });
 const App = createAppContainer(navigator);

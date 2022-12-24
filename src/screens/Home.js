@@ -10,4 +10,10 @@ function Home() {
   )
 }
 
+Home.navigationOptions = () => {
+  return {
+    headerShown: false,
+  }
+}
+
 export default Home
