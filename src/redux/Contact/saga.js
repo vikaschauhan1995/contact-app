@@ -14,12 +14,14 @@ import { saveContactToLocalStorage } from './methods/saveContactToLocalStorage';
 import { getDataFromLocalStorage } from './methods/getDataFromLocalStorage';
 import { deleteContactById } from './methods/deleteContactById';
 import { updateContactOnLocalstorage } from './methods/updateContactOnLocalstorage';
+import { provideRandomColorToSingleContact, provideRandomColorToContacts } from './methods/provideRandomColorToContacts';
 
 function* saveContact(params) {
   try {
     const formData = params?.payload;
     const newContact = yield saveContactToLocalStorage(formData);
-    yield put({ type: ADD_CONTACT_TO_CONTACT_LIST, payload: newContact });
+    const newContactWithBatchColorProvided = yield provideRandomColorToSingleContact(newContact);
+    yield put({ type: ADD_CONTACT_TO_CONTACT_LIST, payload: newContactWithBatchColorProvided });
   } catch (error) {
     // debugger;
     console.log("error", error);
@@ -30,7 +32,8 @@ function* saveContact(params) {
 function* getContacts() {
   try {
     const contacts = yield getDataFromLocalStorage(CONTACT_LOCAL_STORAGE_KEY);
-    yield put({ type: SET_CONTACT_LIST, payload: contacts });
+    const batchColorProvidedContacts = yield provideRandomColorToContacts(contacts);
+    yield put({ type: SET_CONTACT_LIST, payload: batchColorProvidedContacts });
   } catch (error) {
     console.log('Got error while fetching contacts from local storage');
     yield put({ type: SET_CONTACT_LIST, payload: [] });

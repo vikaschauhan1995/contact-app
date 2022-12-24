@@ -31,8 +31,11 @@ function ContactListPage({ navigation }) {
     <View style={styles.contactContainer}>
       <View style={styles.contactInnerContainer}>
         <View style={styles.contactHeader}>
+          {/* <View style={styles.contactHeaderInputInnerContainer}> */}
           <Input
             value={input}
+            inputContainerStyle={styles.inputContainerStyle}
+            placeholderTextColor="rgb(99, 99, 99)"
             onChangeText={handleInputChange}
             onFocus={copyContactList}
             // label="search"
@@ -41,13 +44,15 @@ function ContactListPage({ navigation }) {
             autoCapitalize="none"
             autoCorrect={false}
           />
+          {/* </View> */}
         </View>
         <View style={styles.contactHeader2}>
-          <TouchableOpacity onPress={() => {
-            navigation.navigate("CreateContactScreen")
-          }}>
-            <Text style={{ textAlign: 'center' }}>Create Contact +</Text>
-          </TouchableOpacity>
+          <Button
+            buttonStyle={styles.createButtonStyle}
+            titleStyle={styles.createButtonTitleStyle}
+            onPress={() => {
+              navigation.navigate("CreateContactScreen")
+            }} title="Create Contact +" />
         </View>
         <View style={styles.contactBody}>
           <ContactList list={filteredList === false ? contactList : filteredList} />
@@ -70,10 +75,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   contactHeader: {
-    // height: 100,
+    height: 60,
+    // display: 'flex',
+    // justifyContent: 'center'
   },
   contactHeader2: {
-    height: 50,
     justifyContent: 'center',
     textAlign: 'center'
   },
@@ -82,7 +88,22 @@ const styles = StyleSheet.create({
   },
   input: {
     // flex: 1
-  }
+
+  },
+  inputContainerStyle: {
+    borderBottomWidth: 0,
+    backgroundColor: 'rgba(209, 236, 255, 1)',
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 3,
+  },
+  createButtonStyle: {
+    backgroundColor: 'rgba(244, 244, 244, 0)',
+    marginHorizontal: 10
+  },
+  createButtonTitleStyle: {
+    color: 'black'
+  },
 });
 
 export default withNavigation(ContactListPage)

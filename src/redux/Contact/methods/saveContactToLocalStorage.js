@@ -2,7 +2,7 @@ import { getDataFromLocalStorage } from "./getDataFromLocalStorage";
 import { saveDataToLocalStorageByKey } from './saveDataToLocalStorageByKey';
 import { CONTACT_LOCAL_STORAGE_KEY } from '../const';
 
-function randomRange(min, max) {
+export function randomRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -16,7 +16,6 @@ export function saveContactToLocalStorage(contact) {
       }
       localStorageContacts.push(newContact);
       saveDataToLocalStorageByKey(CONTACT_LOCAL_STORAGE_KEY, localStorageContacts);
-      console.log("localStorageContacts", localStorageContacts);
       resolve(newContact);
     }, 1000);
   });

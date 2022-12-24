@@ -13,12 +13,10 @@ function EditContact({ navigation }) {
   const dispatch = useDispatch();
   const getContact = async () => {
     const id = navigation?.state?.params?.id;
-    console.log("EditContact id=>", id);
     const obj = await findObjectById(id);
     setContact(obj);
   }
   const update = (formData) => {
-    console.log('formData =>>', formData);
     dispatch(updateContact(formData));
     navigation.navigate(HOME_SCREEN_NAVIGATION_KEY);
   }

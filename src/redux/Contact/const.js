@@ -9,6 +9,8 @@ export const COMPANY = 'company';
 export const PHONE = 'phone';
 export const EMAIL = 'email';
 
+export const BATCH_COLOR = 'batch_color';
+
 export const SAVE_CONTACT = 'save_contact';
 export const GET_CONTACTS = 'get_contacts';
 export const DELETE_CONTACT = 'delete_contacts';
