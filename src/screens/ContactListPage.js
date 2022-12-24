@@ -28,33 +28,60 @@ function ContactListPage({ navigation }) {
     dispatch(getContacts());
   }, []);
   return (
-    <View>
-      <Input
-        value={input}
-        onChangeText={handleInputChange}
-        onFocus={copyContactList}
-        // label="search"
-        style={styles.input}
-        placeholder="Search"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <TouchableOpacity onPress={() => {
-        navigation.navigate("CreateContactScreen")
-      }}>
-        <Text>Create Contact +</Text>
-      </TouchableOpacity>
-      <ContactList list={filteredList === false ? contactList : filteredList} />
+    <View style={styles.contactContainer}>
+      <View style={styles.contactInnerContainer}>
+        <View style={styles.contactHeader}>
+          <Input
+            value={input}
+            onChangeText={handleInputChange}
+            onFocus={copyContactList}
+            // label="search"
+            style={styles.input}
+            placeholder="Search"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+        <View style={styles.contactHeader2}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate("CreateContactScreen")
+          }}>
+            <Text style={{ textAlign: 'center' }}>Create Contact +</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.contactBody}>
+          <ContactList list={filteredList === false ? contactList : filteredList} />
+        </View>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  view: {
-    border: '1px solid #fff'
+  contactContainer: {
+    height: '100%',
+    flexDirection: 'row',
+    // borderWidth: 20,
+    // borderStyle: 'solid',
+    // borderColor: 'blue'
+  },
+  contactInnerContainer: {
+    flex: 1,
+    marginTop: 50,
+  },
+  contactHeader: {
+    // height: 100,
+  },
+  contactHeader2: {
+    height: 50,
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+  contactBody: {
+    flex: 1,
   },
   input: {
-    flex: 1
+    // flex: 1
   }
 });
 
