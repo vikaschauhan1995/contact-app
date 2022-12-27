@@ -12,7 +12,7 @@ const initialState = {
   [COMPANY]: "",
   [PHONE]: "",
   [EMAIL]: "",
-  [BATCH_COLOR]: ''
+  [BATCH_COLOR]: ""
 };
 
 function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
@@ -21,6 +21,7 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
   const [company, setCompany] = useState(formData[COMPANY]);
   const [phone, setPhone] = useState(formData[PHONE]);
   const [email, setEmail] = useState(formData[EMAIL]);
+  const [batchColor, setBatchColor] = useState(formData[BATCH_COLOR])
 
   const handleFirstNameChange = (text) => {
     setFirstsName(text);
@@ -45,7 +46,7 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
     [COMPANY]: company,
     [PHONE]: phone,
     [EMAIL]: email,
-    [BATCH_COLOR]: formData[BATCH_COLOR]
+    [BATCH_COLOR]: batchColor
   };
   useEffect(() => {
     setFirstsName(formData[FIRST_NAME]);
@@ -53,6 +54,7 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
     setCompany(formData[COMPANY]);
     setPhone(formData[PHONE]);
     setEmail(formData[EMAIL]);
+    setBatchColor(formData[BATCH_COLOR]);
   }, [formData])
   return (
     <View>

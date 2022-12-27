@@ -3,17 +3,19 @@ import { View, Text } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ContactForm from '../component/ContactForm';
 import { findObjectById } from '../redux/Contact/methods/findObjectById';
-import { initialContactState } from '../redux/Contact/const';
+import { initialContactState, CONTACT_REDUCER, CONTACT_LIST } from '../redux/Contact/const';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateContact } from '../redux/Contact/action';
 import { HOME_SCREEN_NAVIGATION_KEY } from '../constant';
+import { findObjectByFromState } from '../redux/Contact/methods/findObjectByIdFromState';
 
 function EditContact({ navigation }) {
   const [contact, setContact] = useState(initialContactState);
+  const contactList = useSelector(state => state[CONTACT_REDUCER][CONTACT_LIST]);
   const dispatch = useDispatch();
-  const getContact = async () => {
+  const getContact = () => {
     const id = navigation?.state?.params?.id;
-    const obj = await findObjectById(id);
+    const obj = findObjectByFromState(contactList, id);
     setContact(obj);
   }
   const update = (formData) => {
