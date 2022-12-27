@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation';
 import ContactForm from '../component/ContactForm';
 import { findObjectById } from '../redux/Contact/methods/findObjectById';
 import { initialContactState } from '../redux/Contact/const';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateContact } from '../redux/Contact/action';
 import { HOME_SCREEN_NAVIGATION_KEY } from '../constant';
 

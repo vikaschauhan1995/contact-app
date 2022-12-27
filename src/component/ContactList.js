@@ -8,6 +8,8 @@ import { attactiveColorCodes, EDIT_CONTACT_SCREEN_NAVIGATION_KEY } from '../cons
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../redux/Contact/action';
 import { sortArrayOfObjectByKey } from '../redux/Contact/methods/sortArrayOfObjectByKey';
+import { AntDesign } from '@expo/vector-icons';
+import { Button } from 'react-native-elements';
 
 const ContactList = ({ navigation, list }) => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const ContactList = ({ navigation, list }) => {
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel clicked'),
-          style: 'cancel'
+          style: { backgroundColor: 'red' }
         },
         {
           text: 'Ok',
@@ -46,6 +48,7 @@ const ContactList = ({ navigation, list }) => {
     };
     return letter.toUpperCase();
   }
+  // console.log("sortedList list ===>>>", sortedList);
   return (
     <View>
       <FlatList
@@ -53,27 +56,32 @@ const ContactList = ({ navigation, list }) => {
         renderItem={({ item }) => {
           return <View style={styles.container}>
             <View style={styles.main}>
-              <TouchableOpacity
-                style={styles.list}
+              <Button
+                style={{ justifyContent: 'start' }}
+                buttonStyle={styles.createButtonStyle}
+                titleStyle={styles.createButtonTitleStyle}
+                title={
+                  <View style={styles.innerContainer}>
+                    <View style={{ ...styles.batchContainer, backgroundColor: item[BATCH_COLOR] }}>
+                      <Text style={styles.batch}>
+                        <GetFirstLetter string={item[FIRST_NAME]} secondString={item[LAST_NAME]} />
+                      </Text>
+                    </View>
+                    <View style={{ justifyContent: 'center' }}>
+                      <Text style={styles.fontStyle}>{item[FIRST_NAME]} {item[LAST_NAME]}</Text>
+                      {/* <Text style={styles.fontStyle}>Phone: {item[PHONE]}</Text> */}
+                    </View>
+                  </View>
+                }
                 onPress={() => {
                   navigation.navigate(EDIT_CONTACT_SCREEN_NAVIGATION_KEY, { id: item.id })
-                }}>
-                <View style={styles.innerContainer}>
-                  <View style={{ ...styles.batchContainer, backgroundColor: item[BATCH_COLOR] }}>
-                    <Text style={styles.batch}>
-                      <GetFirstLetter string={item[FIRST_NAME]} secondString={item[LAST_NAME]} />
-                    </Text>
-                  </View>
-                  <View style={{ justifyContent: 'center' }}>
-                    <Text style={styles.fontStyle}>{item[FIRST_NAME]} {item[LAST_NAME]}</Text>
-                    {/* <Text style={styles.fontStyle}>Phone: {item[PHONE]}</Text> */}
-                  </View>
-                </View>
-              </TouchableOpacity>
+                }}
+              />
             </View>
             <View style={styles.right}>
               <TouchableOpacity onPress={() => onClickDeleteButton(item.id)}>
-                <Text>Delete</Text>
+                <AntDesign name="delete" style={styles.deleteIcon} />
+                {/* <Text>Delete</Text> */}
               </TouchableOpacity>
             </View>
           </View>
@@ -94,6 +102,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     display: 'flex',
     flexDirection: 'row',
+    width: '100%'
     // borderWidth: 1,
     // borderStyle: 'solid',
     // borderColor: 'blue'
@@ -121,11 +130,22 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   main: {
-    flex: 1
+    flex: 1,
   },
   right: {
     justifyContent: 'center',
-  }
+  },
+  deleteIcon: {
+    fontSize: 24,
+    color: 'grey'
+  },
+  createButtonStyle: {
+    backgroundColor: 'rgba(244, 244, 244, 0)',
+    marginHorizontal: 10,
+  },
+  createButtonTitleStyle: {
+    color: 'black',
+  },
 });
 
 export default withNavigation(ContactList);

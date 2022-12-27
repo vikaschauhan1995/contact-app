@@ -7,7 +7,8 @@ import {
   ADD_CONTACT_TO_CONTACT_LIST,
   DELETE_CONTACT,
   REMOVE_CONTACT_FROM_CONTACT_LIST,
-  UPDATE_CONTACT
+  UPDATE_CONTACT,
+  UPDATE_CONTACT_LIST
 } from './const';
 import { takeLatest, put } from 'redux-saga/effects';
 import { saveContactToLocalStorage } from './methods/saveContactToLocalStorage';
@@ -54,8 +55,8 @@ function* deleteContact(params) {
 function* updateContact(params) {
   try {
     const contact = params?.payload;
-    const updatedArray = yield updateContactOnLocalstorage(contact);
-    yield put({ type: SET_CONTACT_LIST, payload: updatedArray });
+    yield updateContactOnLocalstorage(contact);
+    yield put({ type: UPDATE_CONTACT_LIST, payload: contact });
   } catch (error) {
     console.log('Got error while updating contact error: ', error);
   }

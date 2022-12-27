@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Text, Button, Input } from 'react-native-elements';
 import { StyleSheet, View, TextInput } from 'react-native';
-import { FIRST_NAME, LAST_NAME, COMPANY, PHONE, EMAIL } from '../redux/Contact/const';
+import { FIRST_NAME, LAST_NAME, COMPANY, PHONE, EMAIL, BATCH_COLOR } from '../redux/Contact/const';
+import { Picker } from '@react-native-picker/picker';
+import Spacer from './Spacer';
+import { button } from '../styled_objects/button';
 
 const initialState = {
   [FIRST_NAME]: "",
   [LAST_NAME]: "",
   [COMPANY]: "",
   [PHONE]: "",
-  [EMAIL]: ""
+  [EMAIL]: "",
+  [BATCH_COLOR]: ''
 };
 
 function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
@@ -40,7 +44,8 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
     [LAST_NAME]: lastName,
     [COMPANY]: company,
     [PHONE]: phone,
-    [EMAIL]: email
+    [EMAIL]: email,
+    [BATCH_COLOR]: formData[BATCH_COLOR]
   };
   useEffect(() => {
     setFirstsName(formData[FIRST_NAME]);
@@ -52,42 +57,75 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
   return (
     <View>
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Text>Save to <Text>Localstorage</Text></Text>
+        <View style={{ ...styles.headerLeft, marginLeft: 15 }}>
+          <View style={{ justifyContent: 'center' }}>
+            <Text>Save to</Text>
+          </View>
+          <View style={{ justifyContent: 'center' }}>
+            <View style={styles.customPickerStyle}>
+              <Picker
+                style={styles.pickerStyle}
+                itemStyle={{
+                  backgroundColor: 'green',
+                  marginLeft: 0,
+                  paddingLeft: 15
+                }}
+                itemTextStyle={{ fontSize: 18, color: 'blue' }}
+                mode="dropdown">
+                <Picker.Item label="Local Storage" value="localStorage" />
+              </Picker>
+            </View>
+          </View>
         </View>
-        <View style={{ width: 100 }}>
-          <Button title={submitButtonTitle} onPress={() => onSubmit(userData)} />
+        <View style={{ justifyContent: 'center', textAlign: 'center' }}>
+          <Button
+            containerStyle={{ ...button.primaryButtonContainerStyle, marginRight: 15 }}
+            buttonStyle={{ ...button.primaryButtonStyle }}
+            title={submitButtonTitle}
+            onPress={() => onSubmit(userData)}
+          />
         </View>
       </View>
-      <TextInput
+      <Spacer />
+      <Input
         value={firstName}
+        inputContainerStyle={styles.inputContainerStyle}
+        placeholderTextColor="rgb(99, 99, 99)"
         onChangeText={handleFirstNameChange}
         placeholder="First Name"
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <TextInput
+      <Input
         value={lastName}
+        inputContainerStyle={styles.inputContainerStyle}
+        placeholderTextColor="rgb(99, 99, 99)"
         onChangeText={handleLastNameChange}
         placeholder="Last Name"
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <TextInput
+      <Input
         value={company}
+        inputContainerStyle={styles.inputContainerStyle}
+        placeholderTextColor="rgb(99, 99, 99)"
         onChangeText={handleCompanyChange}
         placeholder="Company"
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <TextInput
+      <Input
         value={phone}
+        inputContainerStyle={styles.inputContainerStyle}
+        placeholderTextColor="rgb(99, 99, 99)"
         onChangeText={handlePhoneChange}
         keyboardType='numeric'
         placeholder="Phone"
       />
-      <TextInput
+      <Input
         value={email}
+        inputContainerStyle={styles.inputContainerStyle}
+        placeholderTextColor="rgb(99, 99, 99)"
         onChangeText={handleEmailChange}
         placeholder="Email"
         autoCapitalize="none"
@@ -99,15 +137,39 @@ function ContactForm({ formData = initialState, onSubmit, submitButtonTitle }) {
 
 const styles = StyleSheet.create({
   header: {
-    // display: 'flex',
-    marginHorizontal: 15,
+    paddingVertical: 7,
     marginVertical: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: 'rgba(177, 210, 227, 1)'
   },
   headerLeft: {
     flex: 1,
-    justifyContent: 'center'
-  }
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  inputContainerStyle: {
+    borderRadius: 2,
+    paddingHorizontal: 20,
+    paddingVertical: 3,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'grey',
+    marginTop: -10
+  },
+  pickerStyle: {
+    width: 190,
+    marginTop: -14,
+  },
+  customPickerStyle: {
+    backgroundColor: 'white',
+    marginLeft: 10,
+    borderRadius: 20,
+    height: 30,
+    borderWidth: 1,
+  },
+  pickerItemStyle: {
+    backgroundColor: 'green',
+  },
 });
 
 export default ContactForm;
