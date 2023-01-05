@@ -79,10 +79,14 @@ const ContactList = ({ navigation, list }) => {
               />
             </View>
             <View style={styles.right}>
-              <TouchableOpacity onPress={() => onClickDeleteButton(item.id)}>
-                <AntDesign name="delete" style={styles.deleteIcon} />
-                {/* <Text>Delete</Text> */}
-              </TouchableOpacity>
+              <Button
+                buttonStyle={styles.deleteButtonStyle}
+                titleStyle={styles.createButtonTitleStyle}
+                title={
+                  <AntDesign name="delete" style={styles.deleteIcon} />
+                }
+                onPress={() => onClickDeleteButton(item.id)}
+              />
             </View>
           </View>
         }}
@@ -146,6 +150,10 @@ const styles = StyleSheet.create({
   createButtonTitleStyle: {
     color: 'black',
   },
+  deleteButtonStyle: {
+    backgroundColor: 'rgba(244, 244, 244, 0)',
+    marginHorizontal: 10,
+  }
 });
 
 export default withNavigation(ContactList);

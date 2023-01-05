@@ -43,7 +43,7 @@ function ContactListPage({ navigation }) {
             onChangeText={handleInputChange}
             onFocus={copyContactList}
             // label="search"
-            style={styles.input}
+            // style={styles.input}
             placeholder="Search"
             autoCapitalize="none"
             autoCorrect={false}
