@@ -1,4 +1,4 @@
-import { SAVE_CONTACT, GET_CONTACTS, DELETE_CONTACT, UPDATE_CONTACT } from './const';
+import { SAVE_CONTACT, GET_CONTACTS, DELETE_CONTACT, UPDATE_CONTACT, SET_FILTERED_CONTACT_LIST_APPLIED } from './const';
 
 export function saveContact(formData) {
   return {
@@ -24,5 +24,12 @@ export function updateContact(contact) {
   return {
     type: UPDATE_CONTACT,
     payload: contact
+  }
+}
+
+export function setFilteredContactListApplied(bool) {
+  return {
+    type: SET_FILTERED_CONTACT_LIST_APPLIED,
+    payload: bool
   }
 }

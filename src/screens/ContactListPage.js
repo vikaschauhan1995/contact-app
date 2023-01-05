@@ -6,17 +6,21 @@ import { withNavigation } from 'react-navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactList from '../component/ContactList';
 import { filterListOfObjs } from '../methods/filterListOfObjs';
-import { getContacts } from '../redux/Contact/action';
-import { CONTACT_REDUCER, CONTACT_LIST } from '../redux/Contact/const';
+import { getContacts, setFilteredContactListApplied } from '../redux/Contact/action';
+import { CONTACT_REDUCER, CONTACT_LIST, IS_FILTERED_CONTACT_LIST_APPLIED } from '../redux/Contact/const';
 
 function ContactListPage({ navigation }) {
-  const contactList = useSelector(state => state[CONTACT_REDUCER][CONTACT_LIST]);
+  const contactList = useSelector(state => {
+    return state[CONTACT_REDUCER][CONTACT_LIST]
+  });
+  const isFilteredContactListApplied = useSelector(state => state[CONTACT_REDUCER][IS_FILTERED_CONTACT_LIST_APPLIED]);
   const [input, setInput] = useState('');
   const [filteredList, setFilteredList] = useState(false);
   const dispatch = useDispatch();
   const copyContactList = () => {
     if (filteredList === false) {
       setFilteredList(contactList);
+      dispatch(setFilteredContactListApplied(true));
     }
   }
   const handleInputChange = (text) => {
@@ -55,7 +59,7 @@ function ContactListPage({ navigation }) {
             }} title="Create Contact +" />
         </View>
         <View style={styles.contactBody}>
-          <ContactList list={filteredList === false ? contactList : filteredList} />
+          <ContactList list={isFilteredContactListApplied === false ? contactList : filteredList} />
         </View>
       </View>
     </View>
